@@ -50,9 +50,9 @@
                 .state('users', {
                     url: '/users',
                     templateUrl: 'userView.html',
-                    resolve: {
+                    /*resolve: {
                         redirectIfNotAuthenticated: _redirectIfNotAuthenticated
-                    },
+                    },*/
                     controller: 'UserController as user'
                 });
 
