@@ -14,9 +14,9 @@
         vm.users;
         vm.error;
 
-        if($auth.getToken() == null){
+        /*if($auth.getToken() == null){
             $state.go('auth', {});
-        }
+        }*/
 
         vm.getUsers = function() {
 
@@ -40,7 +40,6 @@
           $auth.logout();
           $state.go('auth', {});
         }
-
     }
 
 })();

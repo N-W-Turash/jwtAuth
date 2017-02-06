@@ -22,6 +22,19 @@
 
             // Satellizer configuration that specifies which API
             // route the JWT should be retrieved from
+            function _redirectIfNotAuthenticated($q, $state, $auth) {
+              var defer = $q.defer();
+              if($auth.authenticate()) {
+                defer.resolve(); /* (3) */
+              } else {
+                $timeout(function () {
+                  $state.go('auth', {});
+                });
+                defer.reject();
+              }
+              return defer.promise;
+            }
+
             $authProvider.loginUrl = '/api/authenticate';
 
             // Redirect to the auth state if any other states
@@ -37,6 +50,9 @@
                 .state('users', {
                     url: '/users',
                     templateUrl: 'userView.html',
+                    resolve: {
+                        redirectIfNotAuthenticated: _redirectIfNotAuthenticated
+                    },
                     controller: 'UserController as user'
                 });
 
