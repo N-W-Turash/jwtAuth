@@ -9,6 +9,8 @@
     function AuthController($auth, $state) {
 
         var vm = this;
+
+        vm.errorText = ''
             
         vm.login = function() {
 
@@ -20,8 +22,16 @@
             // Use Satellizer's $auth service to login
             $auth.login(credentials).then(function(data) {
 
+
+                if($auth.getToken() == null){
+                    vm.errorText = 'Error logging in!';  
+                }
+
                 // If login is successful, redirect to the users state
-                $state.go('users', {});
+                else{
+                    $state.go('users', {});
+                    vm.errorText = '';  
+                }
             });
         }
 
