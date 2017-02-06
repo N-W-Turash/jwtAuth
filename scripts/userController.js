@@ -14,6 +14,10 @@
         vm.users;
         vm.error;
 
+        if($auth.getToken() == null){
+            $state.go('auth', {});
+        }
+
         vm.getUsers = function() {
 
             $http.get('api/users'+'?token='+$auth.getToken()).then(successCallback, errorCallback);
